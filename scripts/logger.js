@@ -93,12 +93,30 @@ function setLogLevel(level) {
  * Reset all data (for debugging/corruption recovery)
  */
 async function resetAllData() {
-  const confirmed = confirm(
-    'WARNING: This will delete all your data including history records. ' +
-    'This action cannot be undone. Are you sure you want to continue?'
+  // First confirmation
+  const firstConfirm = confirm(
+    '⚠️ 警告：这将删除所有数据！\n\n' +
+    '包括：\n' +
+    '• 今天的计数\n' +
+    '• 所有历史记录\n' +
+    '• 导出提醒状态\n\n' +
+    '此操作无法撤销！\n\n' +
+    '确定要继续吗？'
   );
   
-  if (!confirmed) {
+  if (!firstConfirm) {
+    return false;
+  }
+  
+  // Second confirmation - make user type to confirm
+  const secondConfirm = confirm(
+    '⚠️ 最后确认！\n\n' +
+    '您即将永久删除所有数据。\n' +
+    '这包括您的所有历史记录。\n\n' +
+    '真的要删除吗？'
+  );
+  
+  if (!secondConfirm) {
     return false;
   }
   
@@ -119,7 +137,7 @@ async function resetAllData() {
         console.log('Database deleted successfully');
         // Clear localStorage as well
         localStorage.removeItem('countGuessCounters');
-        alert('All data has been reset. The extension will reload now.');
+        alert('✓ 所有数据已清除。扩展将重新加载。');
         // Reload the extension
         window.location.reload();
         resolve(true);
@@ -127,14 +145,14 @@ async function resetAllData() {
       
       deleteRequest.onerror = () => {
         console.error('Error deleting database:', deleteRequest.error);
-        alert('Failed to delete database. Please try again.');
+        alert('❌ 删除数据库失败，请重试。');
         reject(deleteRequest.error);
       };
       
       deleteRequest.onblocked = () => {
         console.warn('Database deletion blocked. Attempting to force close...');
         // Try to reload anyway
-        alert('Database deletion was blocked. The extension will reload to complete the reset.');
+        alert('数据库删除被阻止。扩展将重新加载以完成重置。');
         window.location.reload();
         reject(new Error('Database deletion blocked'));
       };
@@ -142,6 +160,62 @@ async function resetAllData() {
   } catch (error) {
     console.error('Error resetting data:', error);
     alert('Failed to reset data. Please try again.');
+    return false;
+  }
+}
+
+/**
+ * Reset only today's counters (keep history)
+ */
+async function resetTodayCounters() {
+  // First confirmation
+  const firstConfirm = confirm(
+    '重置今天的计数？\n\n' +
+    '这将把今天所有角色的计数重置为0。\n' +
+    '历史记录不会被删除。\n\n' +
+    '确定要继续吗？'
+  );
+  
+  if (!firstConfirm) {
+    return false;
+  }
+  
+  // Second confirmation
+  const secondConfirm = confirm(
+    '确认重置今天的计数？\n\n' +
+    '当前计数将全部变为0。\n' +
+    '此操作无法撤销。'
+  );
+  
+  if (!secondConfirm) {
+    return false;
+  }
+  
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const resetCounters = {
+      'sneezy-boom': 0,
+      'stampy-sigh': 0,
+      'grumble-gus': 0,
+      'negative-ned': 0
+    };
+    
+    await updateCurrentCounters({
+      id: 'current',
+      date: today,
+      counters: resetCounters,
+      lastUpdated: Date.now()
+    });
+    
+    console.log('Today\'s counters reset successfully');
+    alert('✓ 今天的计数已重置为0');
+    
+    // Reload to update UI
+    window.location.reload();
+    return true;
+  } catch (error) {
+    console.error('Error resetting today\'s counters:', error);
+    alert('❌ 重置失败，请重试。');
     return false;
   }
 }

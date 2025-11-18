@@ -164,7 +164,7 @@ footer {
   color: #000000;
   transition: all 0.2s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .character-button:hover:not(.disabled) {
@@ -230,14 +230,70 @@ footer {
 }
 
 /* Animation classes */
-@keyframes scaleClick {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.95); }
-  100% { transform: scale(1); }
+/* Button press animation */
+@keyframes buttonPress {
+  0% { 
+    transform: scale(1);
+  }
+  50% { 
+    transform: scale(0.95);
+  }
+  100% { 
+    transform: scale(1);
+  }
 }
 
 .character-button.animate-click {
-  animation: scaleClick 0.3s ease;
+  animation: buttonPress 0.3s ease;
+}
+
+/* Hammer animation - swing down from raised position */
+@keyframes hammerSwing {
+  0% {
+    transform: translate(-50%, -50%) translateY(-30px) rotate(-70deg) scale(0.9);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  40% {
+    transform: translate(-50%, -50%) translateY(-10px) rotate(-115deg) scale(1.05);
+  }
+  55% {
+    transform: translate(-50%, -50%) translateY(0) rotate(-160deg) scale(1.2);
+  }
+  70% {
+    transform: translate(-50%, -50%) translateY(2px) rotate(-165deg) scale(1.15);
+  }
+  85% {
+    transform: translate(-50%, -50%) translateY(-15px) rotate(-130deg) scale(0.95);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(-35px) rotate(-90deg) scale(0.7);
+    opacity: 0;
+  }
+}
+
+.hammer-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  text-shadow: 
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+}
+
+.hammer-icon.animate {
+  animation: hammerSwing 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes flash {
@@ -326,14 +382,39 @@ footer {
 }
 
 
-/* Reset button styles */
+/* Reset today button styles */
+.reset-today-button {
+  width: 100%;
+  padding: 6px;
+  margin-top: 6px;
+  background: #ffffff;
+  color: #666666;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-today-button:hover {
+  background: #f5f5f5;
+  border-color: #000000;
+  color: #000000;
+}
+
+.reset-today-button:active {
+  transform: scale(0.98);
+}
+
+/* Reset all button styles */
 .reset-button {
   width: 100%;
   padding: 6px;
   margin-top: 6px;
   background: #ffffff;
-  color: #000000;
-  border: 1px solid #000000;
+  color: #cc0000;
+  border: 1px solid #cc0000;
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 500;
@@ -342,7 +423,8 @@ footer {
 }
 
 .reset-button:hover {
-  background: #f5f5f5;
+  background: #cc0000;
+  color: #ffffff;
 }
 
 .reset-button:active {

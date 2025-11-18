@@ -81,7 +81,11 @@ function bindEventListeners() {
   const exportBtn = document.getElementById('export-btn');
   exportBtn.addEventListener('click', handleExport);
   
-  // Reset data button
+  // Reset today button
+  const resetTodayBtn = document.getElementById('reset-today-btn');
+  resetTodayBtn.addEventListener('click', resetTodayCounters);
+  
+  // Reset all data button
   const resetBtn = document.getElementById('reset-data-btn');
   resetBtn.addEventListener('click', resetAllData);
   
@@ -129,9 +133,25 @@ async function handleCharacterClick(event) {
   // Update UI
   updateCharacterUI(characterId, currentCounters[characterId]);
   
-  // Trigger click animation
+  // Trigger button press animation
   button.classList.add('animate-click');
   setTimeout(() => button.classList.remove('animate-click'), 300);
+  
+  // Create and animate hammer (baguette!)
+  const hammer = document.createElement('div');
+  hammer.className = 'hammer-icon';
+  hammer.textContent = '🥖';
+  button.appendChild(hammer);
+  
+  // Trigger hammer animation
+  setTimeout(() => hammer.classList.add('animate'), 10);
+  
+  // Remove hammer after animation
+  setTimeout(() => {
+    if (hammer.parentNode) {
+      hammer.parentNode.removeChild(hammer);
+    }
+  }, 600);
   
   // Check if reached max
   if (currentCounters[characterId] >= MAX_DAILY_COUNT) {
