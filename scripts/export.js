@@ -66,22 +66,39 @@ async function exportHistoryToCSV() {
     // Get all history records
     const historyRecords = await getAllHistoryRecords();
     
+    // Get current day's data and add it to the export
+    const currentData = await getCurrentCounters();
+    const today = new Date().toISOString().split('T')[0];
+    
+    // Create a combined array with history + current day
+    const allRecords = [...historyRecords];
+    
+    // Check if today's data is already in history (shouldn't be, but just in case)
+    const todayExists = allRecords.some(record => record.date === today);
+    
+    if (!todayExists && currentData.counters) {
+      // Add today's data to the export
+      allRecords.push({
+        date: today,
+        counters: currentData.counters
+      });
+    }
+    
     // Validate data
-    if (!validateHistoryData(historyRecords)) {
+    if (!validateHistoryData(allRecords)) {
       throw new Error('Invalid history data');
     }
     
     // Generate CSV content
-    const csvContent = generateCSV(historyRecords);
+    const csvContent = generateCSV(allRecords);
     
     // Create filename with current date
-    const today = new Date().toISOString().split('T')[0];
     const filename = `count-guess-history-${today}.csv`;
     
     // Trigger download
     downloadCSV(csvContent, filename);
     
-    console.log('CSV export successful');
+    console.log(`CSV export successful with ${allRecords.length} records`);
     return true;
   } catch (error) {
     console.error('Error exporting CSV:', error);

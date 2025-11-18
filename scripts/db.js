@@ -251,3 +251,14 @@ function getCountersFromLocalStorage() {
 function saveCountersToLocalStorage(countersData) {
   localStorage.setItem('countGuessCounters', JSON.stringify(countersData));
 }
+
+/**
+ * Close database connection
+ */
+function closeDB() {
+  if (db) {
+    db.close();
+    db = null;
+    console.log('Database connection closed');
+  }
+}

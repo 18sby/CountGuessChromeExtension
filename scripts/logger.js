@@ -103,6 +103,14 @@ async function resetAllData() {
   }
   
   try {
+    // Close the database connection first (using closeDB from db.js)
+    if (typeof closeDB === 'function') {
+      closeDB();
+    }
+    
+    // Small delay to ensure connection is fully closed
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     // Delete IndexedDB database
     const deleteRequest = indexedDB.deleteDatabase('CountGuessDB');
     
@@ -111,18 +119,23 @@ async function resetAllData() {
         console.log('Database deleted successfully');
         // Clear localStorage as well
         localStorage.removeItem('countGuessCounters');
-        alert('All data has been reset. Please reload the extension.');
+        alert('All data has been reset. The extension will reload now.');
+        // Reload the extension
+        window.location.reload();
         resolve(true);
       };
       
       deleteRequest.onerror = () => {
         console.error('Error deleting database:', deleteRequest.error);
+        alert('Failed to delete database. Please try again.');
         reject(deleteRequest.error);
       };
       
       deleteRequest.onblocked = () => {
-        console.warn('Database deletion blocked. Please close all extension windows and try again.');
-        alert('Please close all extension windows and try again.');
+        console.warn('Database deletion blocked. Attempting to force close...');
+        // Try to reload anyway
+        alert('Database deletion was blocked. The extension will reload to complete the reset.');
+        window.location.reload();
         reject(new Error('Database deletion blocked'));
       };
     });

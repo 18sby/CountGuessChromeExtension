@@ -349,6 +349,39 @@ footer {
   transform: scale(0.98);
 }
 
+/* Debug button styles */
+.debug-button {
+  width: 100%;
+  padding: 6px;
+  margin-top: 6px;
+  background: #f5f5f5;
+  color: #666666;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.debug-button:hover {
+  background: #e8e8e8;
+  border-color: #b0b0b0;
+}
+
+.debug-button:active {
+  transform: scale(0.98);
+}
+
+/* Debug info styles */
+.debug-info {
+  margin-top: 8px;
+}
+
+.debug-info.hidden {
+  display: none;
+}
+
 
 /* Reduced motion support */
 .reduce-motion * {

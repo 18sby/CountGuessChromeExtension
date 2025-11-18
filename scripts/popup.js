@@ -88,6 +88,10 @@ function bindEventListeners() {
   // Dismiss reminder button
   const dismissBtn = document.getElementById('dismiss-reminder-btn');
   dismissBtn.addEventListener('click', dismissExportReminder);
+  
+  // Debug button
+  const debugBtn = document.getElementById('debug-db-btn');
+  debugBtn.addEventListener('click', toggleDebugInfo);
 }
 
 /**
@@ -215,6 +219,62 @@ if (document.readyState === 'loading') {
 }
 
 console.log('Count Guess popup loaded');
+
+// Debug function to inspect database
+async function debugDatabase() {
+  console.log('=== Database Debug Info ===');
+  
+  const current = await getCurrentCounters();
+  console.log('Current counters:', current);
+  
+  const history = await getAllHistoryRecords();
+  console.log('History records:', history);
+  
+  const reminder = await getAppState('exportReminder');
+  console.log('Export reminder state:', reminder);
+  
+  console.log('=== End Debug Info ===');
+}
+
+// Expose debug function to console
+window.debugDatabase = debugDatabase;
+
+/**
+ * Toggle debug info display
+ */
+async function toggleDebugInfo() {
+  const debugDiv = document.getElementById('debug-info');
+  
+  if (debugDiv.classList.contains('hidden')) {
+    // Show debug info
+    const current = await getCurrentCounters();
+    const history = await getAllHistoryRecords();
+    
+    let html = '<div style="margin-top: 8px; padding: 8px; background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 0.7rem; text-align: left;">';
+    html += '<strong>Current Day:</strong><br>';
+    html += `Date: ${current.date}<br>`;
+    html += `Sneezy: ${current.counters['sneezy-boom']}, `;
+    html += `Stampy: ${current.counters['stampy-sigh']}, `;
+    html += `Grumble: ${current.counters['grumble-gus']}, `;
+    html += `Ned: ${current.counters['negative-ned']}<br><br>`;
+    
+    html += `<strong>History Records: ${history.length}</strong><br>`;
+    if (history.length > 0) {
+      history.slice(-3).forEach(record => {
+        html += `${record.date}: S:${record.counters['sneezy-boom']} T:${record.counters['stampy-sigh']} G:${record.counters['grumble-gus']} N:${record.counters['negative-ned']}<br>`;
+      });
+    } else {
+      html += '<em>No history yet (resets at midnight)</em>';
+    }
+    html += '</div>';
+    
+    debugDiv.innerHTML = html;
+    debugDiv.classList.remove('hidden');
+  } else {
+    // Hide debug info
+    debugDiv.classList.add('hidden');
+  }
+}
 
 
 /**
