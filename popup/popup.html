@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Count Guess</title>
+  <link rel="stylesheet" href="../styles/popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Count Guess</h1>
+    </header>
+    
+    <main id="characters-container">
+      <!-- Sneezy Boom -->
+      <div class="character-card" data-character="sneezy-boom">
+        <button class="character-button" data-character="sneezy-boom">
+          <span class="character-icon">💥</span>
+          <span class="character-name">Sneezy Boom</span>
+        </button>
+        <div class="progress-container">
+          <div class="progress-info">
+            <span class="character-label">Sneezy Boom</span>
+            <span class="count-display">0/300</span>
+          </div>
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar" data-character="sneezy-boom" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stampy Sigh -->
+      <div class="character-card" data-character="stampy-sigh">
+        <button class="character-button" data-character="stampy-sigh">
+          <span class="character-icon">😮‍💨</span>
+          <span class="character-name">Stampy Sigh</span>
+        </button>
+        <div class="progress-container">
+          <div class="progress-info">
+            <span class="character-label">Stampy Sigh</span>
+            <span class="count-display">0/300</span>
+          </div>
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar" data-character="stampy-sigh" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Grumble Gus -->
+      <div class="character-card" data-character="grumble-gus">
+        <button class="character-button" data-character="grumble-gus">
+          <span class="character-icon">😠</span>
+          <span class="character-name">Grumble Gus</span>
+        </button>
+        <div class="progress-container">
+          <div class="progress-info">
+            <span class="character-label">Grumble Gus</span>
+            <span class="count-display">0/300</span>
+          </div>
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar" data-character="grumble-gus" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Negative Ned -->
+      <div class="character-card" data-character="negative-ned">
+        <button class="character-button" data-character="negative-ned">
+          <span class="character-icon">😔</span>
+          <span class="character-name">Negative Ned</span>
+        </button>
+        <div class="progress-container">
+          <div class="progress-info">
+            <span class="character-label">Negative Ned</span>
+            <span class="count-display">0/300</span>
+          </div>
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar" data-character="negative-ned" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <footer>
+      <button id="export-btn" class="export-button">Export Data</button>
+      <button id="reset-data-btn" class="reset-button">Reset All Data</button>
+      <div id="export-reminder" class="export-reminder hidden">
+        <span class="reminder-icon">ⓘ</span>
+        <span class="reminder-text">Monthly Reminder: Export your data to keep your records safe!</span>
+        <button id="dismiss-reminder-btn" class="dismiss-btn">Dismiss</button>
+      </div>
+    </footer>
+  </div>
+  
+  <script src="../scripts/logger.js"></script>
+  <script src="../scripts/performance.js"></script>
+  <script src="../scripts/db.js"></script>
+  <script src="../scripts/export.js"></script>
+  <script src="../scripts/popup.js"></script>
+</body>
+</html>
