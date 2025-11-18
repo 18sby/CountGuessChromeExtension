@@ -7,30 +7,32 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  width: 400px;
-  min-height: 480px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #333;
+  width: 280px;
+  min-height: 360px;
+  background: #ffffff;
+  color: #000000;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 480px;
-  padding: 20px;
+  min-height: 360px;
+  padding: 12px;
 }
 
 /* Header */
 header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 header h1 {
-  color: white;
-  font-size: 2rem;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color: #000000;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 /* Main content */
@@ -38,48 +40,49 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 /* Footer */
 footer {
-  margin-top: 20px;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #e0e0e0;
 }
 
 .export-button {
   width: 100%;
-  padding: 12px;
-  background: white;
-  color: #667eea;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 8px;
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .export-button:hover {
-  background: #f0f0f0;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: #333333;
+  border-color: #333333;
 }
 
 .export-button:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 /* Export reminder */
 .export-reminder {
-  margin-top: 12px;
-  padding: 12px;
-  background: #fff3cd;
-  border: 1px solid #ffc107;
-  border-radius: 8px;
+  margin-top: 8px;
+  padding: 8px;
+  background: #f5f5f5;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.875rem;
+  gap: 6px;
+  font-size: 0.75rem;
 }
 
 .export-reminder.hidden {
@@ -87,29 +90,29 @@ footer {
 }
 
 .reminder-icon {
-  font-size: 1.25rem;
-  color: #856404;
+  font-size: 1rem;
+  color: #666666;
 }
 
 .reminder-text {
   flex: 1;
-  color: #856404;
+  color: #333333;
 }
 
 .dismiss-btn {
-  padding: 4px 12px;
-  background: #ffc107;
-  color: #856404;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 4px 8px;
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  font-size: 0.6875rem;
+  font-weight: 500;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .dismiss-btn:hover {
-  background: #ffb300;
+  background: #333333;
 }
 
 /* Responsive design */
@@ -133,151 +136,97 @@ footer {
 
 /* Character card styles */
 .character-card {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px;
+  transition: border-color 0.2s ease;
 }
 
 .character-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #000000;
 }
 
 /* Character button styles */
 .character-button {
   width: 100%;
-  min-height: 44px;
-  padding: 16px;
-  border: 3px solid;
-  border-radius: 8px;
-  background: white;
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  background: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  font-size: 1.125rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #000000;
+  transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
 }
 
+.character-button:hover:not(.disabled) {
+  background: #000000;
+  color: #ffffff;
+}
+
 .character-button:active {
-  transform: scale(0.95);
+  transform: scale(0.97);
 }
 
 .character-button.disabled {
-  opacity: 0.6;
+  opacity: 0.4;
   cursor: not-allowed;
+  border-color: #cccccc;
+  color: #999999;
 }
 
 .character-button.disabled:active {
   transform: none;
 }
 
-.character-icon {
-  font-size: 2rem;
-}
-
 .character-name {
-  font-size: 1.125rem;
+  font-size: 0.875rem;
 }
 
-/* Character theme colors */
-.character-card[data-character="sneezy-boom"] .character-button {
-  border-color: #E53E3E;
-  color: #E53E3E;
-}
-
-.character-card[data-character="sneezy-boom"] .character-button:hover:not(.disabled) {
-  background: #FFF5F5;
-}
-
-.character-card[data-character="stampy-sigh"] .character-button {
-  border-color: #3182CE;
-  color: #3182CE;
-}
-
-.character-card[data-character="stampy-sigh"] .character-button:hover:not(.disabled) {
-  background: #EBF8FF;
-}
-
-.character-card[data-character="grumble-gus"] .character-button {
-  border-color: #38A169;
-  color: #38A169;
-}
-
-.character-card[data-character="grumble-gus"] .character-button:hover:not(.disabled) {
-  background: #F0FFF4;
-}
-
-.character-card[data-character="negative-ned"] .character-button {
-  border-color: #D69E2E;
-  color: #D69E2E;
-}
-
-.character-card[data-character="negative-ned"] .character-button:hover:not(.disabled) {
-  background: #FFFFF0;
-}
+/* Character theme colors - removed, using black/white theme */
 
 /* Progress container */
 .progress-container {
-  margin-top: 12px;
+  margin-top: 6px;
 }
 
 .progress-info {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  margin-bottom: 6px;
-  font-size: 0.875rem;
-}
-
-.character-label {
-  font-weight: 600;
-  color: #4a5568;
+  margin-bottom: 4px;
+  font-size: 0.6875rem;
 }
 
 .count-display {
-  font-weight: 700;
-  color: #2d3748;
+  font-weight: 500;
+  color: #666666;
 }
 
 /* Progress bar wrapper */
 .progress-bar-wrapper {
   width: 100%;
-  height: 12px;
-  background: #e2e8f0;
-  border-radius: 6px;
+  height: 6px;
+  background: #f0f0f0;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
   overflow: hidden;
   position: relative;
 }
 
 .progress-bar {
   height: 100%;
-  border-radius: 6px;
+  background: #000000;
   transition: width 0.3s ease;
   position: relative;
-}
-
-/* Progress bar theme colors */
-.progress-bar[data-character="sneezy-boom"] {
-  background: linear-gradient(90deg, #E53E3E 0%, #FC8181 100%);
-}
-
-.progress-bar[data-character="stampy-sigh"] {
-  background: linear-gradient(90deg, #3182CE 0%, #63B3ED 100%);
-}
-
-.progress-bar[data-character="grumble-gus"] {
-  background: linear-gradient(90deg, #38A169 0%, #68D391 100%);
-}
-
-.progress-bar[data-character="negative-ned"] {
-  background: linear-gradient(90deg, #D69E2E 0%, #F6E05E 100%);
 }
 
 /* Animation classes */
@@ -338,14 +287,15 @@ footer {
 /* Error message styles */
 .error-message {
   position: fixed;
-  top: 20px;
+  top: 12px;
   left: 50%;
   transform: translateX(-50%);
-  background: #f56565;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: #000000;
+  color: #ffffff;
+  padding: 8px 12px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  font-size: 0.75rem;
   z-index: 1000;
   animation: slideDown 0.3s ease;
 }
@@ -353,7 +303,7 @@ footer {
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(-20px);
+    transform: translateX(-50%) translateY(-10px);
   }
   to {
     opacity: 1;
@@ -369,25 +319,24 @@ footer {
 /* Reset button styles */
 .reset-button {
   width: 100%;
-  padding: 8px;
-  margin-top: 8px;
-  background: #fc8181;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
+  padding: 6px;
+  margin-top: 6px;
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .reset-button:hover {
-  background: #f56565;
-  transform: translateY(-1px);
+  background: #f5f5f5;
 }
 
 .reset-button:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 
