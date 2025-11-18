@@ -150,6 +150,10 @@ function updateCharacterUI(characterId, count) {
   const progressBar = card.querySelector('.progress-bar');
   const percentage = (count / MAX_DAILY_COUNT) * 100;
   progressBar.style.width = `${percentage}%`;
+  
+  // Trigger flash animation on progress bar
+  progressBar.classList.add('flash-progress');
+  setTimeout(() => progressBar.classList.remove('flash-progress'), 300);
 }
 
 /**
