@@ -464,6 +464,35 @@ footer {
   display: none;
 }
 
+/* Settings row styles */
+.settings-row {
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.animation-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #333333;
+  cursor: pointer;
+  user-select: none;
+}
+
+.animation-toggle input[type="checkbox"] {
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+
+.animation-toggle span {
+  flex: 1;
+}
+
 
 /* Reduced motion support */
 .reduce-motion * {

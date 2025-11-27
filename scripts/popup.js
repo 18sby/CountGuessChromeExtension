@@ -32,6 +32,7 @@ const MAX_DAILY_COUNT = 300;
 
 // Current state
 let currentCounters = {};
+let baguetteAnimationEnabled = true;
 
 /**
  * Initialize the popup
@@ -40,6 +41,9 @@ async function initPopup() {
   try {
     // Initialize performance optimizations
     initPerformanceOptimizations();
+    
+    // Load animation setting
+    loadAnimationSetting();
     
     // Initialize database
     await initDB();
@@ -96,6 +100,10 @@ function bindEventListeners() {
   // Debug button
   const debugBtn = document.getElementById('debug-db-btn');
   debugBtn.addEventListener('click', toggleDebugInfo);
+  
+  // Animation toggle
+  const animationToggle = document.getElementById('baguette-animation-toggle');
+  animationToggle.addEventListener('change', handleAnimationToggle);
 }
 
 /**
@@ -137,21 +145,23 @@ async function handleCharacterClick(event) {
   button.classList.add('animate-click');
   setTimeout(() => button.classList.remove('animate-click'), 300);
   
-  // Create and animate hammer (baguette!)
-  const hammer = document.createElement('div');
-  hammer.className = 'hammer-icon';
-  hammer.textContent = '🥖';
-  button.appendChild(hammer);
-  
-  // Trigger hammer animation
-  setTimeout(() => hammer.classList.add('animate'), 10);
-  
-  // Remove hammer after animation
-  setTimeout(() => {
-    if (hammer.parentNode) {
-      hammer.parentNode.removeChild(hammer);
-    }
-  }, 600);
+  // Create and animate baguette if enabled
+  if (baguetteAnimationEnabled) {
+    const hammer = document.createElement('div');
+    hammer.className = 'hammer-icon';
+    hammer.textContent = '🥖';
+    button.appendChild(hammer);
+    
+    // Trigger hammer animation
+    setTimeout(() => hammer.classList.add('animate'), 10);
+    
+    // Remove hammer after animation
+    setTimeout(() => {
+      if (hammer.parentNode) {
+        hammer.parentNode.removeChild(hammer);
+      }
+    }, 600);
+  }
   
   // Check if reached max
   if (currentCounters[characterId] >= MAX_DAILY_COUNT) {
@@ -294,6 +304,31 @@ async function toggleDebugInfo() {
     // Hide debug info
     debugDiv.classList.add('hidden');
   }
+}
+
+/**
+ * Load animation setting from localStorage
+ */
+function loadAnimationSetting() {
+  const saved = localStorage.getItem('baguetteAnimationEnabled');
+  if (saved !== null) {
+    baguetteAnimationEnabled = saved === 'true';
+  }
+  
+  // Update checkbox state
+  const checkbox = document.getElementById('baguette-animation-toggle');
+  if (checkbox) {
+    checkbox.checked = baguetteAnimationEnabled;
+  }
+}
+
+/**
+ * Handle animation toggle change
+ */
+function handleAnimationToggle(event) {
+  baguetteAnimationEnabled = event.target.checked;
+  localStorage.setItem('baguetteAnimationEnabled', baguetteAnimationEnabled.toString());
+  console.log('Baguette animation:', baguetteAnimationEnabled ? 'enabled' : 'disabled');
 }
 
 
